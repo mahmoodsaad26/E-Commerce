@@ -1,0 +1,52 @@
+<div class="container my-5">
+    <div class="d-flex justify-content-between" >
+        <h2>Cart Details:</h2>
+    <button class="btn bg-main text-white mb-4"><a [routerLink]="['/checkOut/',cartDetails.data._id]" class="text-white">
+        continue to pay
+    </a></button>
+    </div>
+    <div class="bg-main-light" *ngIf="cartDetails?.data">
+        <div class="d-flex justify-content-between p-5">
+            <h4>Total Items:
+                <span class="text-main"> {{cartDetails.numOfCartItems}}</span>
+            </h4>
+            <h4>Total Price:
+                <span class="text-main"> {{cartDetails.data.totalCartPrice}}</span>
+                
+            </h4>
+
+            
+
+        </div>
+    
+
+      <div class="row border-bottom my-4" *ngFor="let x of cartDetails.data.products | filterProducts" >
+        <div class="col-md-1">
+           
+            <img [src]="x.product.imageCover" class="w-100" alt="">
+        </div>
+        <div class="col-md-9">
+            <div class="item">
+                <h6>{{x.product.title}}</h6>
+                <p class="text-main">{{x.product.category.name}}</p>
+                <div class="remove d-flex align-items-center">
+                    <p class="m-0 ">{{x.price|currency:' EGP'}}</p>
+                    <button class="btn text-danger p-0 mx-5" (click)="removeItem(x.product.id)"><i class="fa-regular fa-trash-can "></i>remove</button>
+                </div> 
+
+            </div>
+        </div>
+        <div class="col-md-2 ">
+            
+                <button class="btn btn-update" (click)="updateCart(x.count+1,x.product.id)">+</button>
+                <span class="mx-2">{{x.count}}</span>
+                <button class="btn btn-update"(click)="updateCart(x.count-1,x.product.id)">-</button>
+                
+            
+        </div>
+      </div>
+
+        
+    </div>
+
+</div>

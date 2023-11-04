@@ -1,0 +1,46 @@
+<div class="container my-5">
+    <h2>Login :</h2>
+
+    <div class="alert alert-danger" *ngIf="apiError">
+        <p class="mb-0">{{apiError+' '+apiError2}}</p>
+    </div>
+
+    <form [formGroup]="loginForm" class="mt-4" (ngSubmit)="login(loginForm)">
+
+       
+
+
+        <label for="email" class="mt-2">Email :</label>
+        <input type="email" id="email" formControlName="email" class="form-control">
+
+        <div *ngIf="loginForm.get('email')?.errors&&( loginForm.get('email')?.touched || isNotValid)" class="alert alert-danger">
+            <p class="mb-0" *ngIf="loginForm.get('email')?.getError('required')">email is required</p>
+            <p class="mb-0" *ngIf="loginForm.get('email')?.getError('email')">Invalid email</p>
+
+        </div>
+
+
+
+        <label for="password" class="mt-2">Password :</label>
+        <input type="password" id="password" formControlName="password" class="form-control">
+        <div *ngIf="loginForm.get('password')?.errors&& (loginForm.get('password')?.touched || isNotValid)"
+            class="alert alert-danger">
+            <p class="mb-0" *ngIf="loginForm.get('password')?.getError('required')">password is required</p>
+            <p class="mb-0" *ngIf="loginForm.get('password')?.getError('pattern')">Invalid pattern</p>
+
+        </div>
+
+
+
+        <button  class="btn bg-main mt-2 text-white d-block ms-auto">
+            
+            <i *ngIf="isLoading" class=" fa fa-spinner fa-spinner"></i>
+
+            <span *ngIf="!isLoading">login</span>
+            
+            </button>
+
+
+
+    </form>
+</div>
